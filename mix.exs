@@ -47,7 +47,8 @@ defmodule SpaceGarden.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:ecto_psql_extras, "~> 0.2"}
+      {:ecto_psql_extras, "~> 0.2"},
+      {:elixir_auth_google, "~> 1.3.0"},
     ]
   end
 

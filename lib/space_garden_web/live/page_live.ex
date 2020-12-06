@@ -2,7 +2,10 @@ defmodule SpaceGardenWeb.PageLive do
   use SpaceGardenWeb, :live_view
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(params, session, socket) do
+    IO.inspect(params)
+    IO.inspect(session)
+    IO.inspect(socket)
     {:ok, assign(socket, query: "", results: %{})}
   end
 

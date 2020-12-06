@@ -18,6 +18,8 @@ defmodule SpaceGardenWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+    get "/auth/google/callback", GoogleAuthController, :index
+    get "/login", SessionController, :index
   end
 
   # Other scopes may use custom stacks.

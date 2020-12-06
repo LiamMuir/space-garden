@@ -1,5 +1,18 @@
 # SpaceGarden
 
+## TODO
+
+ * add accounts context and user object
+ * add garden context and garden object
+ * add plant object, type-based implementations, drafts have stage: seed
+ * add edit button / live-view, check for login token, check author
+ * integrations:
+    * github repos (pinned)
+    * google keep
+    * chrome / firefox / opera / edge / safari bookmarks
+
+## Deploy
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
