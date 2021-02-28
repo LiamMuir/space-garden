@@ -8,23 +8,129 @@
     <%= live_title_tag assigns[:page_title] || "SpaceGarden", suffix: " · Phoenix Framework" %>
     <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+
+
+<style type="text/css">
+  #app {
+    display: flex;
+    flex-direction: row;
+
+    height: 100%;
+
+    background-color: #1F252A;
+  }
+
+  #drawer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    width: 10rem;
+    height: auto;
+    box-shadow: 0 2px 4px -1px hsla(214, 53%, 23%, 0.16), 0 3px 12px -1px hsla(214, 50%, 22%, 0.26);
+    padding: 5px;
+    transition: width .25s;
+
+    background-color: #1F252A;
+  }
+
+  side-menu-item {
+    --overlay-background-color: #a94442;
+    --item-color-hover: #5b5b5b;
+    --item-color-active: #5b5b5b;
+    --item-text-color: #b5b5b5;
+    --item-icon-color: #b5b5b5;
+    --item-selected-color: #000000;
+    --item-selected-color-text: #a94442;
+  }
+
+  #drawer.collapsed {
+    width: 4rem;
+  }
+
+  #toggleIcon {
+    margin-bottom: 10px;
+    cursor: pointer;
+    color: rgb(235, 89, 5);
+    user-select: none;
+    text-align: center;
+    padding: 5px;
+  }
+
+  #toggleIcon:hover {
+    background-color: rgba(26, 26, 26, 0.1);
+  }
+
+  #content {
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+    width: 100%;
+
+    background-color: #343D46;
+
+    /* set up overflow scrolling in a new context;
+       see https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context */
+    overflow: auto;
+  }
+
+</style>
   </head>
+
   <body>
-    <header>
-      <section class="container">
-        <nav role="navigation">
-          <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
-            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
-            <% end %>
-          </ul>
-        </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
-        </a>
-      </section>
-    </header>
+    <div id="app">
+      <nav id="drawer">
+        <side-menu id="menu">
+          <side-menu-item phx-capture-click="test" id="test" label="Home">
+            <iron-icon icon="home" slot="icon"></iron-icon>
+          </side-menu-item>
+          <side-menu-item phx-capture-click="test2" id="test2" label="Gardens">
+            <iron-icon icon="account-circle" slot="icon"></iron-icon>
+          </side-menu-item>
+          <side-menu-item label="Authors" href="/cms/authors">
+            <iron-icon icon="account-circle" slot="icon"></iron-icon>
+          </side-menu-item>
+        </side-menu>
+
+        <div id="toggleIcon">
+          <iron-icon icon="chevron-left"></iron-icon>
+        </div>
+      </nav>
+      
+      <div id="content">
+      </div>
+    </div>
     <%= @inner_content %>
   </body>
+
+<script>
+  const toggleIcon = document.getElementById("toggleIcon");
+  const menu = document.getElementById("menu");
+  const drawer = document.getElementById("drawer");
+  const test = document.getElementById("test");
+  test.addEventListener("click", () => {
+    event.preventDefault();
+
+  });
+  const test2 = document.getElementById("test2");
+  test2.addEventListener("click", () => {
+    event.preventDefault();
+
+  });
+
+  toggleIcon.addEventListener("click", () => {
+    menu.compact = !menu.compact;
+    if (menu.compact) {
+      drawer.classList.add("collapsed");
+      toggleIcon.firstElementChild['icon']='chevron-right';
+
+    } else {
+      drawer.classList.remove("collapsed");
+      toggleIcon.firstElementChild['icon']='chevron-left';
+    }
+
+  });
+</script>
+
 </html>

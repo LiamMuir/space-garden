@@ -1,0 +1,61 @@
+<h1>Show Garden</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, SpaceGardenWeb.GardenLive.FormComponent,
+    id: @garden.id,
+    title: @page_title,
+    action: @live_action,
+    garden: @garden,
+    current_author: @current_author,
+    return_to: Routes.cms_garden_show_path(@socket, :show, @garden) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @garden.name %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.cms_garden_show_path(@socket, :edit, @garden), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.cms_garden_index_path(@socket, :index) %></span>
+
+<hr style="background-color: black; height: 2px">
+
+
+<div class="canvas">
+  <div id="drag-1" class="draggable">
+    <%# <p> You can drag one element </p> %>
+  </div>
+  <div id="drag-2" class="draggable">
+    <%# <p> with each pointer </p> %>
+  </div>
+</div>
+
+<style>
+
+.canvas {
+  width: 100%;
+  height: 100%;
+  background-color: #e5e5e5;
+  opacity: 50%;
+  border-radius: 0.75em;
+}
+
+#drag-1, #drag-2 {
+  width: 100px;
+  height: 100px;
+  /*margin: 1rem 0 0 1rem;*/
+  background-color: #004691;
+  color: white;
+  border-radius: 0.75em;
+  /*padding: 4%;*/
+  touch-action: none;
+  user-select: none;
+  /*-webkit-transform: translate(0px, 0px);
+          transform: translate(0px, 0px);*/
+}
+
+</style>

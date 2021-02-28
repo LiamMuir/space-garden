@@ -1,11 +1,124 @@
-<main role="main" class="container">
-  <p class="alert alert-info" role="alert"
-    phx-click="lv:clear-flash"
-    phx-value-key="info"><%= live_flash(@flash, :info) %></p>
+<div id="app">
+  <nav id="drawer">
+    <side-menu id="menu">
+      <side-menu-item phx-capture-click="test" id="test" label="Home">
+        <iron-icon icon="home" slot="icon"></iron-icon>
+      </side-menu-item>
+      <side-menu-item phx-capture-click="test2" id="test2" label="Gardens">
+        <iron-icon icon="account-circle" slot="icon"></iron-icon>
+      </side-menu-item>
+      <side-menu-item label="Authors" href="/cms/authors">
+        <iron-icon icon="account-circle" slot="icon"></iron-icon>
+      </side-menu-item>
+    </side-menu>
 
-  <p class="alert alert-danger" role="alert"
-    phx-click="lv:clear-flash"
-    phx-value-key="error"><%= live_flash(@flash, :error) %></p>
+    <div id="toggleIcon">
+      <iron-icon icon="chevron-left"></iron-icon>
+    </div>
+  </nav>
+  <div id="content">
+    <main role="main" class="container">
 
-  <%= @inner_content %>
-</main>
+      <p class="alert alert-info" role="alert"
+        phx-click="lv:clear-flash"
+        phx-value-key="info"><%= live_flash(@flash, :info) %></p>
+
+      <p class="alert alert-danger" role="alert"
+        phx-click="lv:clear-flash"
+        phx-value-key="error"><%= live_flash(@flash, :error) %></p>
+
+      <%= @inner_content %>
+    </main>
+  </div>
+</div>
+
+
+
+<style type="text/css">
+  #app {
+    display: flex;
+    flex-direction: row;
+
+    height: 100%;
+
+    background-color: #1F252A;
+  }
+
+  #drawer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    width: 10rem;
+    height: auto;
+    box-shadow: 0 2px 4px -1px hsla(214, 53%, 23%, 0.16), 0 3px 12px -1px hsla(214, 50%, 22%, 0.26);
+    padding: 5px;
+    transition: width .25s;
+
+    background-color: #1F252A;
+  }
+
+  side-menu-item {
+    --overlay-background-color: #a94442;
+    --item-color-hover: #5b5b5b;
+    --item-color-active: #5b5b5b;
+    --item-text-color: #b5b5b5;
+    --item-icon-color: #b5b5b5;
+    --item-selected-color: #000000;
+    --item-selected-color-text: #a94442;
+  }
+
+  #drawer.collapsed {
+    width: 4rem;
+  }
+
+  #toggleIcon {
+    margin-bottom: 10px;
+    cursor: pointer;
+    color: rgb(235, 89, 5);
+    user-select: none;
+    text-align: center;
+    padding: 5px;
+  }
+
+  #toggleIcon:hover {
+    background-color: rgba(26, 26, 26, 0.1);
+  }
+
+  #content {
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+    width: 100%;
+
+    background-color: #343D46;
+
+    /* set up overflow scrolling in a new context;
+       see https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context */
+    overflow-y: auto;
+  }
+
+</style>
+
+
+
+<script>
+  const toggleIcon = document.getElementById("toggleIcon");
+  const menu = document.getElementById("menu");
+  const drawer = document.getElementById("drawer");
+
+  toggleIcon.addEventListener("click", () => {
+    menu.compact = !menu.compact;
+    if (menu.compact) {
+      drawer.classList.add("collapsed");
+      toggleIcon.firstElementChild['icon']='chevron-right';
+
+    } else {
+      drawer.classList.remove("collapsed");
+      toggleIcon.firstElementChild['icon']='chevron-left';
+    }
+
+  });
+</script>
+

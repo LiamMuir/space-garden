@@ -11,7 +11,7 @@ defmodule SpaceGardenWeb.GoogleAuthController do
     {:ok, profile} = ElixirAuthGoogle.get_user_profile(token.access_token)
     user = Accounts.ensure_user_exists(profile.email)
     conn
-    |> put_session(:user_id, user.id)
+    |> put_session(:current_user_id, user.id)
     # |> put_session(:token, token)
     # |> put_session(:profile, profile)
     |> configure_session(renew: true)

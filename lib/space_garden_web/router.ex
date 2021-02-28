@@ -14,8 +14,22 @@ defmodule SpaceGardenWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/", SpaceGardenWeb do
+    pipe_through :browser
+
+    live "/", AppLive.Index, :index
+
+    live "/demo", PageLive, :index
+
+    get "/auth/google/callback", GoogleAuthController, :index
+    get "/login", SessionController, :index
+
+    live "/users", UserLive.Index, :index
+    live "/users/:id", UserLive.Show, :show
+  end
+
   defp authenticate_user(conn, _) do
-    case get_session(conn, :user_id) do
+    case get_session(conn, :current_user_id) do
       nil ->
         conn
         |> Phoenix.Controller.put_flash(:error, "Login required")
@@ -26,15 +40,15 @@ defmodule SpaceGardenWeb.Router do
     end
   end
 
-  scope "/", SpaceGardenWeb do
-    pipe_through :browser
+  scope "/cms", SpaceGardenWeb.CMS, as: :cms do
+    pipe_through [:browser, :authenticate_user]
 
-    live "/", PageLive, :index
+    live "/gardens", GardenLive.Index, :index
+    live "/gardens/new", GardenLive.Index, :new
+    live "/gardens/:id/edit", GardenLive.Index, :edit
 
-    get "/auth/google/callback", GoogleAuthController, :index
-    get "/login", SessionController, :index
-
-    live "/users", UserLive.Index, :index
+    live "/gardens/:id", GardenLive.Show, :show
+    live "/gardens/:id/show/edit", GardenLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

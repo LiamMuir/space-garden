@@ -16,9 +16,7 @@ module.exports = (env, options) => {
         new OptimizeCSSAssetsPlugin({})
       ]
     },
-    entry: {
-      'app': glob.sync('./vendor/**/*.js').concat(['./js/app.js'])
-    },
+    entry: { app: './js/app.js' },
     output: {
       filename: '[name].js',
       path: path.resolve(__dirname, '../priv/static/js'),
@@ -45,7 +43,7 @@ module.exports = (env, options) => {
       ]
     },
     plugins: [
-      new MiniCssExtractPlugin({ filename: '../css/app.css' }),
+      new MiniCssExtractPlugin({ filename: '../css/[name].css' }),
       new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
     ]
     .concat(devMode ? [new HardSourceWebpackPlugin()] : [])

@@ -3,9 +3,9 @@ defmodule SpaceGardenWeb.PageLive do
 
   @impl true
   def mount(params, session, socket) do
-    IO.inspect(params)
-    IO.inspect(session)
-    IO.inspect(socket)
+    # IO.inspect(params)
+    # IO.inspect(session)
+    # IO.inspect(socket)
     {:ok, assign(socket, query: "", results: %{})}
   end
 

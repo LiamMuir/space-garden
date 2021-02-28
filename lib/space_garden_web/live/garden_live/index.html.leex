@@ -1,0 +1,36 @@
+<h1>Listing Gardens</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, SpaceGardenWeb.GardenLive.FormComponent,
+    id: @garden.id || :new,
+    title: @page_title,
+    action: @live_action,
+    garden: @garden,
+    current_author: @current_author,
+    return_to: Routes.cms_garden_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="gardens">
+    <%= for garden <- @gardens do %>
+      <tr id="garden-<%= garden.id %>">
+        <td><%= garden.name %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.cms_garden_show_path(@socket, :show, garden) %></span>
+          <span><%= live_patch "Edit", to: Routes.cms_garden_index_path(@socket, :edit, garden) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: garden.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Garden", to: Routes.cms_garden_index_path(@socket, :new) %></span>

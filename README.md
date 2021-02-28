@@ -2,14 +2,20 @@
 
 ## TODO
 
- * add accounts context and user object
- * add garden context and garden object
+ * side panel for gardens on left of main page
  * add plant object, type-based implementations, drafts have stage: seed
+ * add plant article object subtype
+ * garden details view with plants listing (simple list with clickable names)
+ * research alts to markup, rich text edits
+ * add new-plant button, editor modal
  * add edit button / live-view, check for login token, check author
  * integrations:
     * github repos (pinned)
     * google keep
-    * chrome / firefox / opera / edge / safari bookmarks
+    * browser bookmarks
+ * art
+    * space garden dark background theme
+    * menu tree branches
 
 ## Deploy
 

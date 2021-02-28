@@ -1,5 +1,4 @@
 /* This file is for your main application css. */
-@import "./phoenix.css";
 @import "../node_modules/nprogress/nprogress.css";
 
 /* LiveView specific classes for your customizations */
@@ -88,4 +87,25 @@
   color: #a94442;
   display: block;
   margin: -1rem 0 2rem;
+}
+
+
+html {
+  height: 100%;
+
+  // see https://www.paulirish.com/2012/box-sizing-border-box-ftw/
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
 }
